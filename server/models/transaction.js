@@ -14,25 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Transaction.belongsTo(models.Customer)
-      Transaction.belongsTo(models.Ticket)
     }
   };
   Transaction.init({
     id: {
-      allowNull: false,
       primaryKey: true,
-      type: Sequelize.UUID
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notNull: {
-          args: true,
-          msg: 'Type is required'
-        },
-        min: 1
-      }
+      type: DataTypes.UUID
     },
     total: {
       type: DataTypes.INTEGER,
@@ -45,8 +32,6 @@ module.exports = (sequelize, DataTypes) => {
         min: 0
       }
     },
-    status: DataTypes.BOOLEAN,
-    TicketId: DataTypes.UUID,
     CustomerId: DataTypes.UUID
   }, {
     sequelize,
@@ -54,7 +39,6 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: (Transaction, opt) => {
         Transaction.id = uuidv4()
-        Transaction.status = false
       }
     }
   });

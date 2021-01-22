@@ -1,12 +1,11 @@
 const { v4: uuidv4 } = require('uuid');
-uuidv4();
 
 'use strict';
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Ticket extends Model {
+  class Cart extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,74 +13,58 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Ticket.belongsTo(models.Events)
-      Ticket.hasMany(models.Cart)
+      Cart.belongsTo(models.Transaction)
+      Cart.belongsTo(models.Ticket)
     }
   };
-  Ticket.init({
+  Cart.init({
     id: {
       primaryKey: true,
       type: DataTypes.UUID
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          args: true,
-          msg: 'Name is required'
-        },
-        notEmpty: {
-          args: true,
-          msg: 'Name is required'
-        }
-      }
-    },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          args: true,
-          msg: 'Type is required'
-        },
-        notEmpty: {
-          args: true,
-          msg: 'Type is required'
-        }
-      }
-    },
-    price: {
+    quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: {
           args: true,
-          msg: 'Price is required'
+          msg: 'Quantity is required'
         },
-        min: 0
+        min: 1
       }
     },
-    quota: {
+    total: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: {
           args: true,
-          msg: 'Quota is required'
+          msg: 'Total is required'
         },
         min: 0
       }
     },
-    EventId: DataTypes.UUID
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Status is required'
+        }
+      }
+    },
+    TicketId: DataTypes.UUID,
+    TransactionId: DataTypes.UUID
   }, {
     sequelize,
-    modelName: 'Ticket',
+    modelName: 'Cart',
     hooks: {
-      beforeCreate: (ticket, opt) => {
-        ticket.id = uuidv4()
+      beforeCreate: (Cart, opt) => {
+        Cart.id = uuidv4()
+        Cart.status = false
       }
     }
   });
-  return Ticket;
+  return Cart;
 };

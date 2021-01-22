@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       allowNull: false,
       primaryKey: true,
-      type: Sequelize.UUID
+      type: DataTypes.UUID
     },
     email: {
       type: DataTypes.STRING,
@@ -52,21 +52,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: 'Name is required'
-        }
-      }
-    },
-    nik: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true,
-      validate: {
-        notNull: {
-          args: true,
-          msg: 'Nik is required'
-        },
-        notEmpty: {
-          args: true,
-          msg: 'Nik is required'
         }
       }
     }

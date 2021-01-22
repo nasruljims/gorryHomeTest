@@ -1,18 +1,34 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Transactions', {
+    await queryInterface.createTable('Carts', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID
       },
-      total: {
+      quantity: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
-      CustomerId: {
+      total: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      status: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
+      },
+      TicketId: {
         references: {
-          model: 'Customers',
+          model: 'Tickets',
+          key: 'id'
+        },
+        type: Sequelize.UUID
+      },
+      TransactionId: {
+        references: {
+          model: 'Transactions',
           key: 'id'
         },
         type: Sequelize.UUID
@@ -28,6 +44,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Transactions');
+    await queryInterface.dropTable('Carts');
   }
 };

@@ -20,9 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   Events.init({
     id: {
-      allowNull: false,
       primaryKey: true,
-      type: Sequelize.UUID
+      type: DataTypes.UUID
     },
     name: {
       type: DataTypes.STRING,
@@ -58,11 +57,11 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           args: true,
-          msg: 'Start Date is required'
+          msg: 'End Date is required'
         },
         notEmpty: {
           args: true,
-          msg: 'Name is required'
+          msg: 'End Date is required'
         }
       }
     },
@@ -72,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Events',
     hooks: {
       beforeCreate: (events, opt) => {
-        events.id = uuidv4()
+        if(events.id == null) events.id = uuidv4()
       }
     }
   });
