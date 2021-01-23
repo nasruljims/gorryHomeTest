@@ -15,6 +15,7 @@ class CustomerController {
                 message: 'login success',
                 user: req.userData
             })
+            console.log(req.userData)
         })
         .catch(err => {
             res.status(500).json(err)
