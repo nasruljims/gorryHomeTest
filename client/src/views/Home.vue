@@ -1,18 +1,28 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>List Of Event</h1>
+    <ul class="list-group" v-for="event in events" :key="event.id">
+      <li class="list-group-item">{{event.name}}</li>
+    </ul> 
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    
+  },
+  created() {
+    this.$store.dispatch('patchEvents')
+  },
+  computed: {
+    events() {
+      return this.$store.state.events
+    }
   }
 }
 </script>

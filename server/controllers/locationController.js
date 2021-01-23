@@ -4,7 +4,10 @@ const { v4: uuidv4 } = require('uuid');
 class LocationController {
     static show(req, res) {
         Locations.findAll()
-        .then(location => res.status(200).json(location))
+        .then(location => {
+            res.status(200).json(location)
+            console.log(location)
+        })
         .catch(err => {
             res.status(500).json(err)
             console.log(err)
