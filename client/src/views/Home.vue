@@ -3,7 +3,7 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <h1>List Of Event</h1>
     <ul class="list-group" v-for="event in events" :key="event.id">
-      <li class="list-group-item">{{event.name}}</li>
+      <li class="list-group-item"><router-link :to="{ name: 'DetailsEvent', params: { id: event.id } }">{{event.name}}</router-link></li>
     </ul> 
   </div>
 </template>
@@ -13,9 +13,6 @@
 
 export default {
   name: 'Home',
-  components: {
-    
-  },
   created() {
     this.$store.dispatch('patchEvents')
   },
@@ -23,6 +20,9 @@ export default {
     events() {
       return this.$store.state.events
     }
+  },
+  method: {
+    
   }
 }
 </script>

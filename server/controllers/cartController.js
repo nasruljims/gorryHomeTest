@@ -4,9 +4,13 @@ const { Cart, Ticket } = require('../models');
 class CartController {
     static show(req, res) {
         Cart.findAll({
-            where: {status: false}
+            where: {status: false},
+            include: Ticket
         })
-        .then(data => res.status(200).json(data))
+        .then(data => {
+            // console.log(data[0].Ticket.EventId, '<<<<<<<<<<<<<<<<')
+            res.status(200).json(data)
+        })
         .catch(err => {
             res.status(500).json(err)
             console.log(err)
@@ -15,17 +19,37 @@ class CartController {
 
     static create(req, res) {
         const ticketId = req.params.id
+        let eventId = ''
         let price = 0
         Ticket.findByPk(ticketId)
         .then(ticket => {
             if(!ticket) throw {message: 'Ticket not found'}
+            if(ticket.quota < 1) throw {message: 'Out of stock'}
             price = ticket.price
-            return Cart.findOne({
-                where: {
-                    TicketId: ticketId
-                },
+            eventId = ticket.EventId
+            return Cart.findAll({
+                where: {status: false},
                 include: Ticket
             })
+        })
+        .then(data => {
+            if(data.length == 0) {
+                return Cart.findOne({
+                    where: {
+                        TicketId: ticketId,
+                        status: false
+                    }                
+                })
+            }else{
+                if(data[0].Ticket.EventId != eventId) throw {message: 'You can only buy ticket in the same event'}
+                return Cart.findOne({
+                    where: {
+                        TicketId: ticketId,
+                        status: false
+                    },
+                    include: Ticket
+                })
+            }
         })
         .then(data => {
             if(!data) {
@@ -44,19 +68,18 @@ class CartController {
                 }else{
                     throw {message: 'Out of quota'}
                 }
-                return Cart.update(
-                    {
-                        quantity: newQuantity,
-                        total: newTotal
+                return Cart.update({
+                    quantity: newQuantity,
+                    total: newTotal
+                },
+                {
+                    where: { 
+                        TicketId: ticketId,
+                        status: false
                     },
-                    {
-                        where: {
-                            TicketId: ticketId
-                        },
-                        returning: true
-                    }
-                )
-            }
+                    returning: true
+                })
+            }   
         })
         .then(data => {
             res.status(201).json(data)
@@ -68,8 +91,13 @@ class CartController {
     }
 
     static minCart(req, res) {
-        const cartId = req.params.id
-        Cart.findByPk(cartId)
+        const ticketId = req.params.id
+        Cart.findOne({
+            where: {
+                TicketId: ticketId,
+                status: false
+            }
+        })
         .then(data => {
             if(!data) {
                 throw {message: 'Cart not found'}
@@ -86,7 +114,8 @@ class CartController {
                     },
                     {
                         where: {
-                            id: data.id
+                            id: data.id,
+                            status: false
                         }, 
                         returning: true
                     })

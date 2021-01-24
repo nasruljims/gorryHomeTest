@@ -11,7 +11,7 @@ instance.interceptors.response.use((response) => {
     Swal.fire({
         icon: 'error',
         title: 'ERROR',
-        text: error.response.data.errors.join(', ')
+        text: error.response.data.message
     })
     return Promise.reject(error)
 })

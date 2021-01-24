@@ -12,7 +12,10 @@ class TransactionController {
 
     static details(req, res) {
         const { id } = req.params
-        Transaction.findByPk(id)
+        Cart.findAll({
+            where: {TransactionId: id},
+            include: Ticket
+        })
         .then(data => res.status(200).json(data))
         .catch(err => {
             res.status(500).json(err)
@@ -21,7 +24,7 @@ class TransactionController {
     }
 
     static create(req, res) {
-        // const userId = req.userData.id
+        const userId = req.body.id
         let total = 0
         Cart.findAll({
             where: {status: false}
@@ -42,7 +45,7 @@ class TransactionController {
             });
             return Transaction.create({
                 total,
-                CustomerId: '97afa082-1d55-46c1-824e-023b8c2436d5'
+                CustomerId: userId
             })
         })
         .then(transaction => {

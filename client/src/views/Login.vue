@@ -1,17 +1,28 @@
 <template>
   <section id="login-page">
-      <div>
-          <h1>Login Page</h1>
-          <router-link to="/home"><button type="button" class="btn btn-primary">Login as Admin</button></router-link>
-          
-          <button type="button" class="btn btn-warning">Login as Customer</button>
-      </div>
+          <h1 class="mb-3">Login Page</h1>
+          <div class="mb-5">
+            <button type="button" class="btn btn-primary" @click="admin">Login as Admin</button>
+          </div>
+          <div>
+            <button type="button" class="btn btn-warning" @click="login">Login as Customer</button>
+          </div>
   </section>
 </template>
 
 <script>
 export default {
-    name: 'LoginPage'
+    name: 'LoginPage',
+    methods: {
+        login() {
+          const payload = {email: 'nasrul@mail.com'}
+          this.$store.dispatch('login', payload)
+        },
+        admin() {
+          localStorage.clear()
+          this.$router.push({ name: 'Home' })
+        }
+    }
 }
 </script>
 

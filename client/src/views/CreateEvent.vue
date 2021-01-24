@@ -20,7 +20,6 @@
                 <option v-for="location in locations" :key="location.id" v-bind:value="location.id">{{location.city}}, {{location.address}}</option>
             </select>
         </div>
-        <!-- <p>{{locations}}</p> -->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </section>

@@ -5,6 +5,6 @@ const router = require('express').Router()
 router.get('/', EventController.show)
 router.get('/get_info/:id', EventController.details)
 router.post('/create', EventController.create)
-router.post('/ticket/create/:id', TicketController.create)
+router.post('/ticket/create', TicketController.create)
 
 module.exports = router

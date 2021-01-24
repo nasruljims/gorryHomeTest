@@ -2,8 +2,9 @@ const { Customer } = require('../models')
 
 class CustomerController {
     static login(req, res) {
+        const email = req.body.email
         Customer.findOne({
-            where: {email: 'nasrul@mail.com'}
+            where: {email: email}
         })
         .then(user => {
             let payload = {
@@ -13,9 +14,9 @@ class CustomerController {
             req.userData = payload
             res.status(200).json({
                 message: 'login success',
-                user: req.userData
+                id: user.id 
             })
-            console.log(req.userData)
+            console.log(req.userData, '<<<<<<userData login line 19')
         })
         .catch(err => {
             res.status(500).json(err)

@@ -2,6 +2,7 @@ const TicketController = require('../controllers/ticketController')
 
 const router = require('express').Router()
 
-router.get('/', TicketController.show)
+router.get('/:eventId', TicketController.show)
+router.delete('/:id', TicketController.delete)
 
 module.exports = router

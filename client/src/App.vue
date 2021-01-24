@@ -3,7 +3,10 @@
     <div id="nav">
       <router-link to="/">Login Page</router-link> |
       <router-link to="/home">Home</router-link> |
-      <router-link to="/event/create">Create Event</router-link>
+      <router-link to="/event/create">Create Event</router-link> |
+      <router-link to="/location">Locations</router-link> |
+      <router-link to="/location/create">Create Location</router-link> |
+      <router-link to="/transaction">Transactions</router-link>
     </div>
     <router-view/>
   </div>

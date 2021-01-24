@@ -1,4 +1,4 @@
-const { Events, Locations } = require('../models')
+const { Events, Locations} = require('../models')
 
 class EventController {
     static show(req, res) {
@@ -12,7 +12,12 @@ class EventController {
 
     static details(req, res) {
         const { id } = req.params
-        Events.findByPk(id)
+        Events.findOne({
+            where: {
+                id
+            },
+            include: Locations
+        })
         .then(event => res.status(200).json(event))
         .catch(err => {
             res.status(500).json(err)

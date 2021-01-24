@@ -28,7 +28,9 @@ module.exports = {
           model: 'Events',
           key: 'id'
         },
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
       },
       createdAt: {
         allowNull: false,
