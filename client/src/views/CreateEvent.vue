@@ -1,27 +1,29 @@
 <template>
-  <section id="create-event-page">
-    <form @submit.prevent="createEvent">
-        <div class="mb-3">
-            <label for="name" class="form-label">Event Name</label>
-            <input type="text" class="form-control" id="name" v-model="name">
-        </div>
-        <div class="mb-3">
-            <label for="start">Start Date:</label>
-            <input type="date" id="start" name="startDate" v-model="start_date">
-        </div>
-        <div class="mb-3">
-            <label for="end">End Date:</label>
-            <input type="date" id="end" name="endDate" v-model="end_date">
-        </div>
-        <div class="input-group mb-3">
-            <label class="input-group-text" for="locationSelect">Locations</label>
-            <select class="form-select" id="locationSelect" v-model="LocationId">
-                <!-- <option value="#">Choose...</option> -->
-                <option v-for="location in locations" :key="location.id" v-bind:value="location.id">{{location.city}}, {{location.address}}</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+  <section id="create-event-page" class="row justify-content-center mt-5">
+    <div class="col-7 shadow-lg p-3 mb-5 bg-white rounded">
+        <form @submit.prevent="createEvent">
+            <div class="mb-3">
+                <label for="name" class="form-label">Event Name:</label>
+                <input type="text" class="form-control" id="name" v-model="name">
+            </div>
+            <div class="mb-3">
+                <label for="start">Start Date:</label>
+                <input type="date" id="start" name="startDate" v-model="start_date">
+            </div>
+            <div class="mb-3">
+                <label for="end">End Date:</label>
+                <input type="date" id="end" name="endDate" v-model="end_date">
+            </div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="locationSelect">Locations</label>
+                <select class="form-select" id="locationSelect" v-model="LocationId">
+                    <!-- <option value="#">Choose...</option> -->
+                    <option v-for="location in locations" :key="location.id" v-bind:value="location.id">{{location.city}}, {{location.address}}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
   </section>
 </template>
 

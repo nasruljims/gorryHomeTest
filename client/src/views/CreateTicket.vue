@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <form @submit.prevent="createTicket">
+  <section class="row justify-content-center mt-5">
+    <form @submit.prevent="createTicket" class="col-7 shadow-lg p-3 mb-5 bg-white rounded">
         <div class="mb-3">
             <label for="name" class="form-label">Name:</label>
             <input type="text" class="form-control" id="name" v-model="name">

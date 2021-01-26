@@ -59,7 +59,7 @@ class TransactionController {
                 returning: true
             })
         })
-        .then(data => res.status(200).json({
+        .then(data => res.status(201).json({
             message: 'Transaction success',
             data
         }))

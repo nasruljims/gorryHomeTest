@@ -27,8 +27,8 @@
                 </tbody>
              </table>
         </div>
-        <div v-if="isCustomer == 'customer'" @changePage="changePage">
-            <h1>Event's Tickets</h1>
+        <div v-if="isCustomer == 'customer'" @changePage="changePage" class="mt-5">
+            <h1>Event Tickets</h1>
              <table class="table table-striped">
                 <thead>
                     <tr>

@@ -4,7 +4,7 @@
 ```
 npm install
 ```
-
+*if installation error please check your internet connection*
 ### Compiles and hot-reloads for development
 ```
 npm run serve

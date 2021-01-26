@@ -18,7 +18,6 @@ class TicketController {
 
     static create(req, res) {
         const {name, type, price, quota, EventId} = req.body
-        // const { id } = req.params
         Events.findByPk(EventId)
         .then(event => {
             if(!event) throw {message: 'Event not found'}

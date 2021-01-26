@@ -1,5 +1,7 @@
 <template>
     <section>
+        <h1>List of Transactions</h1>
+        <p>info: Click the transaction ID to see the transaction details</p>
         <table class="table table-striped">
             <thead>
                 <tr>
